@@ -3,15 +3,17 @@
 
 // PART 1: SHOW A FORTUNE
 
-function showFortune(evt) {
-
-    // TODO: get the fortune and show it in the #fortune-text div
+function showFortune(fortune) {
+    $('#fortune-text').html(fortune);
 }
 
-$('#get-fortune-button').on('click', showFortune);
+function getFortune(evt) {
+    evt.preventDefault();
+    $.get('/fortune', showFortune);
+}
+    // TODO: get the fortune and show it in the #fortune-text div
 
-
-
+$('#get-fortune-button').on('click', getFortune);
 
 
 // PART 2: SHOW WEATHER
@@ -20,6 +22,11 @@ function showWeather(evt) {
     evt.preventDefault();
 
     var url = "/weather.json?zipcode=" + $("#zipcode-field").val();
+
+    // This is still broken, start here when you come back to it
+    $.get(url, function (weather) {
+        $('#weather-form').html(weather);
+    });
 
     // TODO: request weather with that URL and show the forecast in #weather-info
 }
